@@ -1,4 +1,4 @@
-# Claims — 设计文档（领地保护 Fabric 服务端模组）
+# SimpleClaims — 设计文档（领地保护 Fabric 服务端模组）
 
 > 目标：Minecraft 26.2 · Fabric API 0.158.0+26.2 · Fabric Loader 0.19.3
 > 形态：纯服务端模组（`environment = "server"`），原版客户端可直接连接。
@@ -56,7 +56,7 @@
 | `/claim border hide` | 关闭边框显示。 |
 | `/claim cancel` | 清除选区。 |
 
-## 4. 配置（`config/claims/config.json`，力求极简）
+## 4. 配置（`config/simpleclaims/config.json`，力求极简）
 
 ```json
 {
@@ -74,7 +74,7 @@
 
 ## 5. 持久化
 
-- 领地数据序列化为 JSON，存于 `config/claims/claims.json`（按维度 id 分组），服务端停止/启动自动读写。
+- 领地数据序列化为 JSON，存于 `config/simpleclaims/claims.json`（按维度 id 分组），服务端停止/启动自动读写。
 - 信任关系与领地数据一并持久化。
 
 ## 6. 项目结构
