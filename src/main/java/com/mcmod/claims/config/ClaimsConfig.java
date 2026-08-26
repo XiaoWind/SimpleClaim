@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * 模组配置，JSON 存储于 config/simpleclaims/config.json，力求极简。
+ * 模组配置，JSON 存储于 config/simpleclaim/config.json，力求极简。
  */
 public final class ClaimsConfig {
     /** 总开关：是否启用领地保护。 */
@@ -46,7 +46,7 @@ public final class ClaimsConfig {
                 }
             }
         } catch (IOException | JsonSyntaxException e) {
-            ClaimsMod.LOGGER.error("[simpleclaims] 读取配置失败，使用默认配置", e);
+            ClaimsMod.LOGGER.error("[simpleclaim] 读取配置失败，使用默认配置", e);
         }
         ClaimsConfig cfg = new ClaimsConfig();
         cfg.save();
@@ -59,7 +59,7 @@ public final class ClaimsConfig {
             Files.createDirectories(file.getParent());
             Files.writeString(file, GSON.toJson(this));
         } catch (IOException e) {
-            ClaimsMod.LOGGER.error("[simpleclaims] 保存配置失败", e);
+            ClaimsMod.LOGGER.error("[simpleclaim] 保存配置失败", e);
         }
     }
 
@@ -72,6 +72,6 @@ public final class ClaimsConfig {
     }
 
     private static Path configFile() {
-        return FabricLoader.getInstance().getConfigDir().resolve("simpleclaims").resolve("config.json");
+        return FabricLoader.getInstance().getConfigDir().resolve("simpleclaim").resolve("config.json");
     }
 }
