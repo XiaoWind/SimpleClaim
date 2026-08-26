@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * 领地数据仓库 + JSON 持久化（config/simpleclaims/claims.json）。
+ * 领地数据仓库 + JSON 持久化（config/simpleclaim/claims.json）。
  */
 public final class ClaimStore {
     private final List<Claim> claims = new ArrayList<>();
@@ -116,7 +116,7 @@ public final class ClaimStore {
                 }
             }
         } catch (IOException | JsonSyntaxException e) {
-            ClaimsMod.LOGGER.error("[simpleclaims] 读取领地数据失败", e);
+            ClaimsMod.LOGGER.error("[simpleclaim] 读取领地数据失败", e);
         }
         return store;
     }
@@ -127,11 +127,11 @@ public final class ClaimStore {
             Files.createDirectories(file.getParent());
             Files.writeString(file, GSON.toJson(claims));
         } catch (IOException e) {
-            ClaimsMod.LOGGER.error("[simpleclaims] 保存领地数据失败", e);
+            ClaimsMod.LOGGER.error("[simpleclaim] 保存领地数据失败", e);
         }
     }
 
     private static Path dataFile() {
-        return FabricLoader.getInstance().getConfigDir().resolve("simpleclaims").resolve("claims.json");
+        return FabricLoader.getInstance().getConfigDir().resolve("simpleclaim").resolve("claims.json");
     }
 }
