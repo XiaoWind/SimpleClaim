@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * 仅在专用服务器上运行（fabric.mod.json 中 environment=server）。
  */
 public final class ClaimsMod implements DedicatedServerModInitializer {
-    public static final String MOD_ID = "claims";
+    public static final String MOD_ID = "simpleclaims";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static ClaimsConfig CONFIG;
@@ -49,7 +49,7 @@ public final class ClaimsMod implements DedicatedServerModInitializer {
             CONFIG.save();
         });
 
-        LOGGER.info("[claims] 已初始化，已加载 {} 个领地", STORE.all().size());
+        LOGGER.info("[simpleclaims] 已初始化，已加载 {} 个领地", STORE.all().size());
     }
 
     /** 返回世界维度的标识字符串，如 "minecraft:overworld"。 */
