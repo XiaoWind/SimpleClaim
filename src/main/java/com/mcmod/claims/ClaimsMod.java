@@ -49,7 +49,7 @@ public final class ClaimsMod implements DedicatedServerModInitializer {
             CONFIG.save();
         });
 
-        LOGGER.info("[simpleclaims] 已初始化，已加载 {} 个领地", STORE.all().size());
+        LOGGER.info("[simpleclaim] 已初始化，已加载 {} 个领地", STORE.all().size());
     }
 
     /** 返回世界维度的标识字符串，如 "minecraft:overworld"。 */
