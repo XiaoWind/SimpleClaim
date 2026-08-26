@@ -40,7 +40,7 @@ public final class ProtectionHandler {
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) ->
                 !isBlocked(player, world, pos));
 
-        // 左键方块：金斧/金锄 = 选区；否则阻止开始破坏（含创造瞬间破坏）
+        // 左键方块：金斧 = 选区；否则阻止开始破坏（含创造瞬间破坏）
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
             if (isSelectionTool(player, hand)) {
                 select(player, pos, true);
@@ -49,7 +49,7 @@ public final class ProtectionHandler {
             return isBlocked(player, world, pos) ? InteractionResult.FAIL : InteractionResult.PASS;
         });
 
-        // 右键方块：金斧/金锄 = 选区；否则阻止使用方块（箱子/门/按钮/放置等）
+        // 右键方块：金斧 = 选区；否则阻止使用方块（箱子/门/按钮/放置等）
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
             if (isSelectionTool(player, hand)) {
                 select(player, hitResult.getBlockPos(), false);
@@ -96,7 +96,7 @@ public final class ProtectionHandler {
 
     private static boolean isSelectionTool(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        return stack.is(Items.GOLDEN_AXE) || stack.is(Items.GOLDEN_HOE);
+        return stack.is(Items.GOLDEN_AXE);
     }
 
     private static void select(Player player, BlockPos pos, boolean first) {
