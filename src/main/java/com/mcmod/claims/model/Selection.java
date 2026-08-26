@@ -22,5 +22,6 @@ public final class Selection {
     public int maxZ() { return Math.max(pos1.getZ(), pos2.getZ()); }
 
     public int sideX() { return maxX() - minX() + 1; }
+    public int sideY() { return maxY() - minY() + 1; }
     public int sideZ() { return maxZ() - minZ() + 1; }
 }
