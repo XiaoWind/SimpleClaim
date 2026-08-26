@@ -86,7 +86,7 @@ public final class ClaimCommand {
         ServerPlayer player = requirePlayer(ctx);
         Selection sel = ClaimsMod.SELECTIONS.get(player.getUUID());
         if (sel == null || !sel.complete()) {
-            msg(player, "§c请先用金斧左键、金锄右键选择两个对角点");
+            msg(player, "§c请先用金斧左键、金斧右键选择两个对角点");
             return 0;
         }
         if (sel.sideX() > ClaimsMod.CONFIG.maxClaimSideLength || sel.sideZ() > ClaimsMod.CONFIG.maxClaimSideLength) {
