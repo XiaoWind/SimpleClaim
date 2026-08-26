@@ -89,7 +89,9 @@ public final class ClaimCommand {
             msg(player, "§c请先用金斧左键、金斧右键选择两个对角点");
             return 0;
         }
-        if (sel.sideX() > ClaimsMod.CONFIG.maxClaimSideLength || sel.sideZ() > ClaimsMod.CONFIG.maxClaimSideLength) {
+        if (sel.sideX() > ClaimsMod.CONFIG.maxClaimSideLength
+                || sel.sideY() > ClaimsMod.CONFIG.maxClaimSideLength
+                || sel.sideZ() > ClaimsMod.CONFIG.maxClaimSideLength) {
             msg(player, "§c领地单边长度不能超过 " + ClaimsMod.CONFIG.maxClaimSideLength);
             return 0;
         }
@@ -104,14 +106,14 @@ public final class ClaimCommand {
         }
         String claimName = (name != null && !name.isBlank()) ? name : ("claim-" + (owned + 1));
         Claim claim = new Claim(claimName, player.getUUID(), player.getGameProfile().name(),
-                sel.world, sel.minX(), sel.minZ(), sel.maxX(), sel.maxZ());
+                sel.world, sel.minX(), sel.minY(), sel.minZ(), sel.maxX(), sel.maxY(), sel.maxZ());
         if (ClaimsMod.STORE.overlaps(claim)) {
             msg(player, "§c选区与已有领地重叠");
             return 0;
         }
         ClaimsMod.STORE.add(claim);
         ClaimsMod.SELECTIONS.clear(player.getUUID());
-        msg(player, "§a已创建领地 §e" + claim.name + " §a范围 " + claim.sideX() + "x" + claim.sideZ());
+        msg(player, "§a已创建领地 §e" + claim.name + " §a范围 " + claim.sideX() + "x" + claim.sideY() + "x" + claim.sideZ());
         return 1;
     }
 
@@ -151,8 +153,8 @@ public final class ClaimCommand {
         }
         msg(player, "§a你的领地 (" + mine.size() + "):");
         for (Claim c : mine) {
-            msg(player, "§7- §e" + c.name + " §7[" + c.world + "] §f(" + c.minX + "," + c.minZ
-                    + ") → (" + c.maxX + "," + c.maxZ + ")  " + c.sideX() + "x" + c.sideZ());
+            msg(player, "§7- §e" + c.name + " §7[" + c.world + "] §f(" + c.minX + "," + c.minY + "," + c.minZ
+                    + ") → (" + c.maxX + "," + c.maxY + "," + c.maxZ + ")  " + c.sideX() + "x" + c.sideY() + "x" + c.sideZ());
         }
         return 1;
     }
@@ -243,7 +245,7 @@ public final class ClaimCommand {
         msg(player, "§6===== 领地 " + c.name + " =====");
         msg(player, "§7主人: §f" + c.ownerName);
         msg(player, "§7维度: §f" + c.world);
-        msg(player, "§7范围: §f(" + c.minX + "," + c.minZ + ") → (" + c.maxX + "," + c.maxZ + ")  " + c.sideX() + "x" + c.sideZ());
+        msg(player, "§7范围: §f(" + c.minX + "," + c.minY + "," + c.minZ + ") → (" + c.maxX + "," + c.maxY + "," + c.maxZ + ")  " + c.sideX() + "x" + c.sideY() + "x" + c.sideZ());
         msg(player, "§7信任: §f" + namesOf(c.trusted, player.level().getServer()));
     }
 
