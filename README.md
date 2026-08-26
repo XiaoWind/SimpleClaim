@@ -1,4 +1,4 @@
-# SimpleClaims —— 纯服务端领地保护 Fabric 模组
+# SimpleClaim —— 纯服务端领地保护 Fabric 模组
 
 一个 **只安装在服务器上** 的领地保护模组，原版客户端无需安装任何东西即可连接。
 玩家通过**聊天命令 + 金斧选区**圈地，圈好的领地内只有主人和信任玩家可以自由活动，
@@ -9,7 +9,7 @@
 - Fabric API：**0.158.0+26.2**
 - 运行/编译：**Java 25**
 - 形态：`environment = "server"`（纯服务端，客户端无需安装）
-- ✅ **已按真实 26.2 + Fabric API 0.158.0+26.2 编译验证通过**（产物 `build/libs/simpleclaims-1.2.0.jar`）
+- ✅ **已按真实 26.2 + Fabric API 0.158.0+26.2 编译验证通过**（产物 `build/libs/simpleclaim-1.3.0.jar`）
 
 > 设计细节见 [DESIGN.md](DESIGN.md)。
 
@@ -78,7 +78,7 @@
 
 ## 配置
 
-文件：`config/simpleclaims/config.json`（首次运行自动生成）
+文件：`config/simpleclaim/config.json`（首次运行自动生成）
 
 ```json
 {
@@ -104,7 +104,7 @@
 
 ## 持久化
 
-- 领地数据存于 `config/simpleclaims/claims.json`，服务端停止及每次增删/信任变更时自动保存。
+- 领地数据存于 `config/simpleclaim/claims.json`，服务端停止及每次增删/信任变更时自动保存。
 - 信任名单与领地一并持久化。
 
 ---
@@ -121,7 +121,7 @@
 ```bash
 # 先安装 JDK 25 与 Gradle 9，然后：
 gradle build
-# 产物在 build/libs/simpleclaims-1.2.0.jar
+# 产物在 build/libs/simpleclaim-1.3.0.jar
 ```
 
 方式二（推荐，IntelliJ IDEA）：
@@ -145,7 +145,7 @@ gradle build
 ## 安装到服务器
 
 1. 在服务器上安装 Fabric（Loader **0.19.3**）与 Fabric API（**0.158.0+26.2**）。
-2. 把 `build/libs/simpleclaims-1.2.0.jar` 丢进服务器的 `mods/` 目录。
+2. 把 `build/libs/simpleclaim-1.3.0.jar` 丢进服务器的 `mods/` 目录。
 3. 启动服务器。客户端保持原版即可连接。
 
 ---
