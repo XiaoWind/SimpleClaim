@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * 一个领地：某个维度内的轴对齐 X/Z 矩形，Y 覆盖整个世界高度。
+ * 一个领地：某个维度内的轴对齐 3D 立方体（由两个对角点确定，含 X/Y/Z 范围）。
  */
 public final class Claim {
     public String name;
@@ -16,8 +16,10 @@ public final class Claim {
     public Set<String> trusted = new LinkedHashSet<>(); // 信任玩家 UUID 字符串
     public String world;                       // 维度标识，如 "minecraft:overworld"
     public int minX;
+    public int minY;
     public int minZ;
     public int maxX;
+    public int maxY;
     public int maxZ;
 
     private transient UUID ownerId;
@@ -26,13 +28,15 @@ public final class Claim {
     }
 
     public Claim(String name, UUID owner, String ownerName, String world,
-                 int minX, int minZ, int maxX, int maxZ) {
+                 int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
         this.name = name;
         this.owner = owner.toString();
         this.ownerName = ownerName;
         this.world = world;
         this.minX = Math.min(minX, maxX);
         this.maxX = Math.max(minX, maxX);
+        this.minY = Math.min(minY, maxY);
+        this.maxY = Math.max(minY, maxY);
         this.minZ = Math.min(minZ, maxZ);
         this.maxZ = Math.max(minZ, maxZ);
     }
@@ -56,18 +60,19 @@ public final class Claim {
         return isOwner(id) || isTrusted(id);
     }
 
-    public boolean contains(int x, int z) {
-        return x >= minX && x <= maxX && z >= minZ && z <= maxZ;
+    public boolean contains(int x, int y, int z) {
+        return x >= minX && x <= maxX && y >= minY && y <= maxY && z >= minZ && z <= maxZ;
     }
 
     public boolean contains(BlockPos pos) {
-        return contains(pos.getX(), pos.getZ());
+        return contains(pos.getX(), pos.getY(), pos.getZ());
     }
 
-    /** 两个领地（同维度）的 X/Z 矩形是否相交。 */
+    /** 两个领地（同维度）的 3D 立方体是否相交。 */
     public boolean intersects(Claim other) {
         return world.equals(other.world)
                 && minX <= other.maxX && maxX >= other.minX
+                && minY <= other.maxY && maxY >= other.minY
                 && minZ <= other.maxZ && maxZ >= other.minZ;
     }
 
@@ -75,11 +80,15 @@ public final class Claim {
         return maxX - minX + 1;
     }
 
+    public int sideY() {
+        return maxY - minY + 1;
+    }
+
     public int sideZ() {
         return maxZ - minZ + 1;
     }
 
-    public long area() {
-        return (long) sideX() * sideZ();
+    public long volume() {
+        return (long) sideX() * sideY() * sideZ();
     }
 }
