@@ -108,7 +108,7 @@ public final class ProtectionHandler {
         } else {
             ClaimsMod.SELECTIONS.setPos2(id, pos, world);
             Selection sel = ClaimsMod.SELECTIONS.get(id);
-            String size = sel.complete() ? "  §e(" + sel.sideX() + "x" + sel.sideZ() + ")" : "";
+            String size = sel.complete() ? "  §e(" + sel.sideX() + "x" + sel.sideY() + "x" + sel.sideZ() + ")" : "";
             player.sendOverlayMessage(Component.literal("§a已选择第二个点: " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + size));
         }
     }
