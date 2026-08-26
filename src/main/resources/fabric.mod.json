@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "simpleclaims",
+  "id": "simpleclaim",
   "version": "${version}",
-  "name": "SimpleClaims",
+  "name": "SimpleClaim",
   "description": "纯服务端领地保护模组：聊天命令选区/信任/边框，阻止非信任玩家进入与操作。",
   "authors": [],
   "license": "MIT",
