@@ -113,18 +113,18 @@ public final class BorderRenderer {
                     spacing);
         }
 
-        // 2) 玩家周围一定半径内的所有领地：在视平线画一圈轮廓
+        // 2) 玩家周围一定半径内的所有领地：画 3D 立方体边框
         int radius = Math.max(8, ClaimsMod.CONFIG.borderRadiusBlocks);
         BlockPos center = player.blockPosition();
-        double y = player.getEyeY();
         for (Claim c : ClaimsMod.STORE.inWorld(world)) {
             if (c.maxX < center.getX() - radius || c.minX > center.getX() + radius
                     || c.maxZ < center.getZ() - radius || c.minZ > center.getZ() + radius) {
                 continue;
             }
-            drawRectangle(level, player, s.color,
-                    c.minX, c.minZ, c.maxX + 1, c.maxZ + 1,
-                    y, spacing);
+            drawBox(level, player, s.color,
+                    c.minX, c.minY, c.minZ,
+                    c.maxX + 1, c.maxY + 1, c.maxZ + 1,
+                    spacing);
         }
     }
 
