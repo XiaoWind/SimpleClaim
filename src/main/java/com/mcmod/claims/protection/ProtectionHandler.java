@@ -36,17 +36,17 @@ public final class ProtectionHandler {
     }
 
     public static void register() {
-        // 破坏方块（最终层，防止挖到完成）
+        // 破坏方块（最终层）：金斧=选区（不破坏）；受保护位置=禁止破坏。
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) ->
-                !isBlocked(player, world, pos));
+                !isSelectionTool(player, InteractionHand.MAIN_HAND) && !isBlocked(player, world, pos));
 
-        // 左键方块：金斧 = 选区；否则阻止开始破坏（含创造瞬间破坏）
+        // 左键方块：金斧 = 选区（记录第一个点）。始终返回 PASS，避免破坏流程与客户端不同步
+        //（否则服务器会刷 "Mismatch in destroy block pos" 警告）；真正阻止破坏交给上面的 BEFORE 事件。
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
             if (isSelectionTool(player, hand)) {
                 select(player, pos, true);
-                return InteractionResult.FAIL;
             }
-            return isBlocked(player, world, pos) ? InteractionResult.FAIL : InteractionResult.PASS;
+            return InteractionResult.PASS;
         });
 
         // 右键方块：金斧 = 选区；否则阻止使用方块（箱子/门/按钮/放置等）
