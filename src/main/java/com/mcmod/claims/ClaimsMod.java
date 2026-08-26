@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * 仅在专用服务器上运行（fabric.mod.json 中 environment=server）。
  */
 public final class ClaimsMod implements DedicatedServerModInitializer {
-    public static final String MOD_ID = "simpleclaims";
+    public static final String MOD_ID = "simpleclaim";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static ClaimsConfig CONFIG;
