@@ -1,7 +1,7 @@
 # 用 GitHub Actions 编译本模组
 
 > ✅ 本模组源码已按真实 **Minecraft 26.2 + Fabric API 0.158.0+26.2** 编译验证通过（`BUILD SUCCESSFUL`），
-> 产物为 `build/libs/simpleclaims-1.2.0.jar`。下面这套 GitHub Actions 流程是给“本机不便装 JDK/Gradle”时用的备选。
+> 产物为 `build/libs/simpleclaim-1.3.0.jar`。下面这套 GitHub Actions 流程是给“本机不便装 JDK/Gradle”时用的备选。
 
 本机没有 JDK/Gradle/出网，但 GitHub Actions 的 Linux 运行器自带这些，且能访问 Maven 拉取 Minecraft/映射/Fabric 依赖。
 **全程不需要把 Personal Access Token 交给任何人**，一切在 GitHub 上完成。
@@ -29,7 +29,7 @@ git push -u origin main
 检出代码 → 装 JDK 25 → 装 Gradle 9 → `gradle build` → 上传产物 jar。
 
 查看方式：仓库页顶部 **Actions** 标签 → 点本次运行 → 拉到底部 **Artifacts** → 下载 `claims-jar`，
-解压得到的 `simpleclaims-1.2.0.jar` 就是成品，丢进服务端 `mods/` 即可。
+解压得到的 `simpleclaim-1.3.0.jar` 就是成品，丢进服务端 `mods/` 即可。
 
 ## 如果构建失败（首次很可能报 1~3 处错）
 
