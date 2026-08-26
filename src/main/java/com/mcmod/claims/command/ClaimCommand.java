@@ -13,6 +13,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,7 +37,12 @@ public final class ClaimCommand {
                 .then(Commands.literal("create")
                         .executes(ctx -> create(ctx, null))
                         .then(Commands.argument("name", StringArgumentType.word())
-                                .executes(ctx -> create(ctx, StringArgumentType.getString(ctx, "name")))))
+                                .executes(ctx -> create(ctx, StringArgumentType.getString(ctx, "name"))))
+                        .then(Commands.argument("from", BlockPosArgument.blockPos())
+                                .then(Commands.argument("to", BlockPosArgument.blockPos())
+                                        .executes(ctx -> createFromCoords(ctx, null))
+                                        .then(Commands.argument("name", StringArgumentType.word())
+                                                .executes(ctx -> createFromCoords(ctx, StringArgumentType.getString(ctx, "name")))))))
                 .then(Commands.literal("remove")
                         .executes(ctx -> remove(ctx, null))
                         .then(Commands.argument("name", StringArgumentType.word())
@@ -86,9 +93,24 @@ public final class ClaimCommand {
         ServerPlayer player = requirePlayer(ctx);
         Selection sel = ClaimsMod.SELECTIONS.get(player.getUUID());
         if (sel == null || !sel.complete()) {
-            msg(player, "§c请先用金斧左键、金斧右键选择两个对角点");
+            msg(player, "§c请先用金斧左键、金斧右键选两个对角点，或 /claim create <x1> <y1> <z1> <x2> <y2> <z2> [名字]");
             return 0;
         }
+        return doCreate(player, sel, name);
+    }
+
+    private static int createFromCoords(CommandContext<CommandSourceStack> ctx, String name) throws CommandSyntaxException {
+        ServerPlayer player = requirePlayer(ctx);
+        BlockPos from = BlockPosArgument.getBlockPos(ctx, "from");
+        BlockPos to = BlockPosArgument.getBlockPos(ctx, "to");
+        Selection sel = new Selection();
+        sel.pos1 = from;
+        sel.pos2 = to;
+        sel.world = ClaimsMod.dimensionOf(player.level());
+        return doCreate(player, sel, name);
+    }
+
+    private static int doCreate(ServerPlayer player, Selection sel, String name) {
         if (sel.sideX() > ClaimsMod.CONFIG.maxClaimSideLength
                 || sel.sideY() > ClaimsMod.CONFIG.maxClaimSideLength
                 || sel.sideZ() > ClaimsMod.CONFIG.maxClaimSideLength) {
